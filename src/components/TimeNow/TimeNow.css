@@ -1,0 +1,17 @@
+.showTime {
+    top: 110px;
+    right: 30px;
+    font-size: 36px;
+    font-weight: 500;
+    text-shadow: 2px 2px 2px rgb(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: 2;
+    color: var(--gray-color);
+}
+
+@media (min-width: 1024px) {
+    .showTime {
+        top: 46px;
+        right: 180px;
+    }
+}

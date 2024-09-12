@@ -1,0 +1,104 @@
+import { useState } from 'react';
+import './App.css'
+
+import TimeNow from "./components/TimeNow/TimeNow";
+import TrackBtn from './components/TrackButton/TrackButton'
+import Detail from './components/Detail/Detail'
+
+import DefaultMap from './components/Map/DefaultMap'
+
+function App() {
+
+  const mapConfig = {
+    '/': {
+      mapName: (
+        <div className='pageName'>
+          <label style={{ color: 'var(--orange-color)', fontWeight: "bold", overflow: "none" }}>KMITL</label>
+          <label>&nbsp;</label>
+          <label style={{ color: 'var(--black-color)', fontWeight: "normal" }}>Transit Tracking</label>
+        </div>
+      ),
+      mapBase: <DefaultMap />,
+      trackGroup: "ENGTCK",
+      enableStation: true,
+      routeName: "KMTIL Transit Tracking"
+    },
+    '/floodmap': {
+      mapName: (
+        <div className='pageName'>
+          <label style={{ color: 'var(--orange-color)', fontWeight: "bold", overflow: "none" }}>KMITL</label>
+          <label>&nbsp;</label>
+          <label style={{ color: 'var(--black-color)', fontWeight: "normal" }}>เรือช่วยเหลือน้ำท่วม</label>
+        </div>
+      ),
+      mapBase: <DefaultMap />,
+      trackGroup: "ENGTCK",
+      enableStation: false,
+      routeName: "เรือช่วยเหลือน้ำท่วม"
+    }
+  };
+
+  const routeSetting = (path) => {
+    if (mapConfig[path] === undefined) {
+      return {
+        mapName: (
+          <div className='pageName'>
+            <label style={{ color: 'var(--orange-color)', fontWeight: "bold", overflow: "none" }}>KMITL</label>
+            <label>&nbsp;</label>
+            <label style={{ color: 'var(--black-color)', fontWeight: "normal" }}>Tracking System</label>
+          </div>
+        ),
+        mapBase: <DefaultMap />,
+        trackGroup: null,
+        enableStation: true
+      };
+    } else {
+      return mapConfig[path];
+    }
+  };
+
+  const { mapName, mapBase, trackGroup, enableStation } = routeSetting(location.pathname.toLowerCase());
+  const routeNames = Object.entries(mapConfig).map(([key, config]) => ({
+    routePath: key,
+    routeName: config.routeName
+  }));
+
+  const [trackObj, setTrackObj] = useState(null);
+  const [trackType, setTrackType] = useState("Vehicle");
+  const [isNavrop, setIsNavdrop] = useState(false);
+
+  return (
+    <>
+      <TimeNow />
+      <div className='Nav'>
+
+        {mapName}
+
+        <button className="menu" onClick={() => {setIsNavdrop(!isNavrop)}}>
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--black-color)" strokeWidth="0.4"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="var(--black-color)" fillRule="evenodd" d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z"></path> </g></svg>
+        </button>
+
+        <div
+          className='menuList'
+          style={{
+            display: isNavrop ? 'initial' : 'none'
+          }}>
+            {routeNames.map(({ routePath, routeName }, index) => (
+              routePath !== window.location.pathname && <div key={index} onClick={() => {window.open(`${window.location.origin}${routePath}`) }}>{routeName}</div>
+            ))}
+
+          <br></br>
+          Develop By IoTE of KMITL&nbsp;&nbsp;&nbsp;
+        </div>
+
+      </div>
+
+      <div className='Map'> {mapBase} </div>
+
+      <TrackBtn trackGroup={trackGroup} trackObj={trackObj} setTrackObj={setTrackObj} trackType={trackType} setTrackType={setTrackType} enableStation={enableStation} />
+      {trackObj !== null && <Detail trackObj={trackObj} trackType={trackType} />}
+    </>
+  )
+}
+
+export default App

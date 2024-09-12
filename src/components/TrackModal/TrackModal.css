@@ -1,0 +1,131 @@
+@import "../../index.css";
+
+.Track {
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(100, 100, 100, 0.5);
+}
+
+.fillGap {
+    z-index: -1;
+    position: fixed;
+    width: 40px;
+    height: 100px;
+    background-color: var(--white-color);
+    left: 50%;
+    transform: translate(-50%, 20px);
+}
+
+.TrackModal {
+    z-index: 4;
+    position: absolute;
+    top: 105px;
+    left: 5%;
+    width: 90%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.TrackModal > .SelectFilter > button{
+    border: none;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 30px;
+    width: 50%;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.TrackModal > .SelectBody{
+    background-color: var(--white-color);
+    height: 100%;
+    border-radius: 0 0 20px 20px;
+    transform: translateY(-1px);
+    display: flex;
+    flex-direction: column;
+}
+
+.Selector{
+    flex-grow: 1;
+    padding: 20px 20px 0 20px;
+}
+
+.Selector > div {
+    max-height: 47vh;
+    height: 100%;
+    overflow: scroll;
+    scroll-snap-type: y mandatory;
+    display: flex;
+    flex-direction: column;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.Selector > div > button {
+    border: none;
+    font-size: 22px;
+    font-weight: 500;
+    text-align: left;
+    margin: 5px 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    scroll-snap-align: start;
+    
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.SelectorBtn {
+    display: flex;
+    align-self: flex-end;
+    align-items: center;
+}
+
+.SelectorBtn > button:first-child{
+    flex-shrink: 0;
+    /* width: fit-content; */
+    border: none;
+    border-radius: 30px;
+    padding: 15px 20px;
+    font-size: 22px;
+    font-weight: 700;
+
+    color: var(--gray-color);
+    background-color: #D8D8D8;
+    margin: 20px 5px 20px 30px;
+}
+
+.SelectorBtn > button:last-child{
+    flex-shrink: 0;
+    width: fit-content;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 35px;
+    font-size: 22px;
+    font-weight: 700;
+
+    color: var(--white-color);
+    background-color: var(--orange-color);
+    margin: 20px 30px 20px 5px;
+}
+
+@media (min-width: 1024px) {
+    .TrackModal {
+        width: 35%;
+        position: absolute;
+        left: auto;
+        right: 6%;
+    }
+    .fillGap {
+        width: 34%;
+        left: auto;
+        right: 6%;
+        transform: translate(-1.5%, 20px);
+    }
+}

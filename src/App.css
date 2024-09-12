@@ -1,0 +1,89 @@
+@import "index.css";
+
+#root {
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.Map {
+  width: 100%;
+  z-index: -2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  height: 3rem;
+}
+
+.pageName {
+  display: flex;
+  width: 85%;
+  justify-content: start;
+}
+
+.pageName>label {
+  font-size: 24px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.menu {
+  display: flex;
+  width: 15%;
+  align-items: center;
+  justify-content: end;
+  border: none;
+  background-color: transparent;
+}
+
+.menu>svg {
+  width: 40px;
+}
+
+.menuList {
+  padding: 10px 5px 15px 5px;
+  z-index: 5;
+  position: fixed;
+  width: 55%;
+  top: 11%;
+  right: 7%;
+  background-color: var(--white-color);
+  border-radius: 5px;
+  
+  font-size: 12px;
+  font-weight: 400;
+  text-align: end;
+}
+
+.menuList > div {
+  color: var(--black-color);
+  margin: 3px 0;
+  padding: 5px 15px;
+  text-align: start;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@media (min-width: 1024px) {
+  #root {
+  margin: 2rem 5rem;
+  }
+  
+  .pageName>label {
+      font-size: 32px;
+  }
+
+  .menuList {
+    width: 15%;
+    right: 6%;
+  }
+}

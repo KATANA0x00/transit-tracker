@@ -1,5 +1,13 @@
 @import "index.css";
 
+.test {
+  position: absolute;
+  color: red;
+  bottom: 48px !important;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 #root {
   margin: 2rem auto;
   padding: 1rem;
@@ -12,6 +20,8 @@
   position: absolute;
   top: 0;
   left: 0;
+  overflow: hidden;
+  transform: translateY(-5%);
 }
 
 .Nav {
@@ -85,5 +95,13 @@
   .menuList {
     width: 15%;
     right: 6%;
+  }
+
+  .test {
+    position: absolute;
+    color: red;
+    bottom: 8% !important;
+    font-size: 24px;
+    font-weight: 700;
   }
 }

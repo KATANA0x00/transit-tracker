@@ -117,13 +117,13 @@
 
 @media (min-width: 1024px) {
     .TrackModal {
-        width: 35%;
+        width: 25%;
         position: absolute;
         left: auto;
         right: 6%;
     }
     .fillGap {
-        width: 34%;
+        width: 24%;
         left: auto;
         right: 6%;
         transform: translate(-1.5%, 20px);

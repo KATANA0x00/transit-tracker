@@ -36,7 +36,7 @@ export default function Detail({trackObj, trackType}) {
             }>
             <button
                 style={{marginBottom: `${isRotated ? '0' : '22px'}`}}
-                onClick={() => { setIsRotated(!isRotated) }}
+                onClick={() => { setIsRotated(!isRotated); setIsDesktop(window.innerWidth >= 1024); }}
             >
                 <svg
                     viewBox="0 0 24 24"

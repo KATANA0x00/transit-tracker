@@ -9,7 +9,7 @@ export default function TrackModal({ trackObj, setTrackObj, setIsPopup, trackTyp
 
     const fetchCollection = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/${trackType}/get/collection/${trackGroup}`);
+            const response = await axios.get(`${import.meta.env.VITE_CONNECTION_URL}${trackType}/get/collection/${trackGroup}`);
             // console.log(response.data);
             setList(response.data);
         } catch (error) {

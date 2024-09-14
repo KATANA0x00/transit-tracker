@@ -11,7 +11,7 @@ export default function TrackButton({trackObj, setTrackObj, trackType, setTrackT
 
     const fetchName = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/${trackType}/get/name/${trackObj}`);
+            const response = await axios.get(`${import.meta.env.VITE_CONNECTION_URL}${trackType}/get/name/${trackObj}`);
             // console.log(response.data.Name);
             setName(response.data.Name);
         } catch (error) {

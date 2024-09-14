@@ -16,7 +16,7 @@ export default function FloodMap({ trackGroup, trackObj }) {
 
     const fetchList = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/Vehicle/get/position/${trackGroup}`);
+            const response = await axios.get(`${import.meta.env.VITE_CONNECTION_URL}Vehicle/get/position/${trackGroup}`);
             setList(response.data);
         } catch (error) {
             console.error('Error fetching Position:', error);

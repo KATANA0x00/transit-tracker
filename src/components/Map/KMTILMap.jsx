@@ -9,7 +9,7 @@ export default function FloodMap({ trackGroup, trackObj, trackType }) {
 
     const { isLoaded, loadError } = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: "AIzaSyC2Va7mDBcmuCee_Y3thK4TrDq-RVPbNDI"
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY
     });
 
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
@@ -19,9 +19,9 @@ export default function FloodMap({ trackGroup, trackObj, trackType }) {
 
     const fetchList = useCallback(async () => {
         try {
-            const response1 = await axios.get(`http://localhost:3000/api/Vehicle/get/position/${trackGroup}`);
+            const response1 = await axios.get(`${import.meta.env.VITE_CONNECTION_URL}Vehicle/get/position/${trackGroup}`);
             setListVlehicle(response1.data);
-            const response2 = await axios.get(`http://localhost:3000/api/Station/get/position/${trackGroup}`);
+            const response2 = await axios.get(`${import.meta.env.VITE_CONNECTION_URL}Station/get/position/${trackGroup}`);
             setListStation(response2.data);
         } catch (error) {
             console.error('Error fetching Position:', error);

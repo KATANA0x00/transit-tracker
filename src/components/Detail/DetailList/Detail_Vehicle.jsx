@@ -8,7 +8,7 @@ export default function Detail_Tram({trackObj}) {
 
     const fetchDetail = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/vehicle/get/detail/${trackObj}`);
+            const response = await axios.get(`${import.meta.env.VITE_CONNECTION_URL}vehicle/get/detail/${trackObj}`);
             // console.log(response.data);
             setList(response.data);
         } catch (error) {

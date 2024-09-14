@@ -55,12 +55,8 @@ export default function FloodMap({ trackGroup, trackObj, clientLocation, setClie
     }, [list]);
 
     useEffect(() => {
-        if (mapRef.current !== null && trackObj) {
-            trackType === "Vehicle" ?
-            mapRef.current.setCenter(listVehicle.find((Item) => Item.ID === trackObj).Position)
-            :
-            mapRef.current.setCenter(listStation.find((Item) => Item.ID === trackObj).Position)
-            
+        if (mapRef !== null && trackObj) {
+            trackObj && mapRef.current.setCenter(list.find((Item) => Item.ID === trackObj).Position);
             mapRef.current.setZoom(18);
         }
     }, [trackObj]);

@@ -74,7 +74,14 @@ export default function FloodMap({ trackGroup, trackObj }) {
                         icon={{
                             url: BoatIcon,
                             scaledSize: new window.google.maps.Size(48, 48),
-                            anchor: new window.google.maps.Point(24, 24)
+                            anchor: new window.google.maps.Point(24, 24),
+                            labelOrigin: new google.maps.Point(24, 53)
+                        }}
+                        label={{
+                            text: Item.Name,
+                            color: "black",
+                            fontWeight: "700",
+                            fontSize: "14px"
                         }}
                     />
                 ))

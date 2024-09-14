@@ -37,6 +37,7 @@ export default function FloodMap({ trackGroup, trackObj }) {
                 bounds.extend(new window.google.maps.LatLng(Item.Position.lat, Item.Position.lng));
             });
             mapRef.current.fitBounds(bounds);
+            mapRef.current.setZoom(18);
             hasBoundsSet.current = true;
         }
     }, [list]);
@@ -63,7 +64,7 @@ export default function FloodMap({ trackGroup, trackObj }) {
             options={{
                 disableDefaultUI: true,
                 gestureHandling: 'greedy',
-                maxZoom: 18
+                maxZoom: 21
             }}
         >
             {

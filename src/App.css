@@ -63,7 +63,7 @@
   padding: 10px 5px 15px 5px;
   z-index: 5;
   position: fixed;
-  width: 55%;
+  width: 60%;
   top: 11%;
   right: 7%;
   background-color: var(--white-color);
@@ -81,6 +81,7 @@
   text-align: start;
   font-size: 18px;
   font-weight: 500;
+  overflow: hidden;
 
   cursor: pointer;
 }
@@ -95,7 +96,7 @@
   }
 
   .menuList {
-    width: 15%;
+    width: 20%;
     right: 6%;
   }
 

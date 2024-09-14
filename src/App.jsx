@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css'
 
 import TimeNow from "./components/TimeNow/TimeNow";
@@ -13,6 +13,13 @@ import FloodMap from './components/Map/FloodMap'
 
 function App() {
   
+  const [trackObj, setTrackObj] = useState(null);
+  const [trackType, setTrackType] = useState("Vehicle");
+  const [isNavrop, setIsNavdrop] = useState(false);
+  const [clientLocation, setClientLocation] = useState(null);
+
+  const [handleSelfTrack, setHandleSelfTrack] = useState();
+
   const mapConfig = {
     '/': {
       mapName: (
@@ -63,10 +70,6 @@ function App() {
     routeName: config.routeName
   }));
 
-  const [trackObj, setTrackObj] = useState(null);
-  const [trackType, setTrackType] = useState("Vehicle");
-  const [isNavrop, setIsNavdrop] = useState(false);
-
   return (
     <>
       <div className="test">* อยู่ในช่วงระหว่างการพัฒนาระบบ *</div>
@@ -95,11 +98,11 @@ function App() {
       </div>
 
       <div className='Map'>
-        {location.pathname.toLowerCase() === '/' && <KMITLMap trackGroup={trackGroup} trackType={trackType} trackObj={trackObj}/>}
-        {location.pathname.toLowerCase() === '/floodmap' && <FloodMap trackGroup={trackGroup} trackObj={trackObj}/>}
+        {location.pathname.toLowerCase() === '/' && <KMITLMap trackGroup={trackGroup} trackType={trackType} trackObj={trackObj} clientLocation={clientLocation} setClientLocation={setClientLocation} setHandleSelfTrack={setHandleSelfTrack}/>}
+        {location.pathname.toLowerCase() === '/floodmap' && <FloodMap trackGroup={trackGroup} trackObj={trackObj} clientLocation={clientLocation} setClientLocation={setClientLocation} setHandleSelfTrack={setHandleSelfTrack}/>}
       </div>
 
-      <TrackBtn trackGroup={trackGroup} trackObj={trackObj} setTrackObj={setTrackObj} trackType={trackType} setTrackType={setTrackType} enableStation={enableStation} />
+      <TrackBtn trackGroup={trackGroup} trackObj={trackObj} setTrackObj={setTrackObj} trackType={trackType} setTrackType={setTrackType} enableStation={enableStation} clientLocation={clientLocation} handleSelfTrack={handleSelfTrack}/>
       {trackObj !== null && <Detail trackObj={trackObj} trackType={trackType} />}
     </>
   )

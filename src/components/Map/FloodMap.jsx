@@ -3,8 +3,9 @@ import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
 
 import BoatIcon from '../../assets/icons/boat.png';
+import ClientIcon from '../../assets/icons/client-marker.png';
 
-export default function FloodMap({ trackGroup, trackObj }) {
+export default function FloodMap({ trackGroup, trackObj, clientLocation, setClientLocation, setHandleSelfTrack }) {
     const { isLoaded, loadError } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: "AIzaSyC2Va7mDBcmuCee_Y3thK4TrDq-RVPbNDI"
@@ -13,6 +14,12 @@ export default function FloodMap({ trackGroup, trackObj }) {
     const mapRef = useRef(null);
     const [list, setList] = useState([]);
     const hasBoundsSet = useRef(false);
+
+    function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        setClientLocation({ lat: latitude, lng: longitude });
+    }
 
     const fetchList = useCallback(async () => {
         try {
@@ -26,6 +33,11 @@ export default function FloodMap({ trackGroup, trackObj }) {
     useEffect(() => {
         const interval = setInterval(() => {
             fetchList();
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success);
+            }
+            
         }, 1000);
         return () => clearInterval(interval);
     }, [fetchList]);
@@ -43,11 +55,24 @@ export default function FloodMap({ trackGroup, trackObj }) {
     }, [list]);
 
     useEffect(() => {
-        if(mapRef !== null && trackObj){
-            trackObj && mapRef.current.setCenter(list.find((Item) => Item.ID === trackObj).Position);
+        if (mapRef.current !== null && trackObj) {
+            trackType === "Vehicle" ?
+            mapRef.current.setCenter(listVehicle.find((Item) => Item.ID === trackObj).Position)
+            :
+            mapRef.current.setCenter(listStation.find((Item) => Item.ID === trackObj).Position)
+            
             mapRef.current.setZoom(18);
         }
     }, [trackObj]);
+
+    useEffect(() => {
+        setHandleSelfTrack( () => () => {
+            if (mapRef.current !== null && trackObj === null) {
+                clientLocation && mapRef.current.setCenter(clientLocation);
+                clientLocation && mapRef.current.setZoom(18);
+            }
+        });
+    },[clientLocation]);
 
     if (!isLoaded || loadError) {
         return null;
@@ -60,7 +85,7 @@ export default function FloodMap({ trackGroup, trackObj }) {
                 mapRef.current = map;
                 map.setCenter({ lat: 13.727046907649072, lng: 100.77439265537033 });
             }}
-            onUnmount={() => { mapRef.current = null;}}
+            onUnmount={() => { mapRef.current = null; }}
             options={{
                 disableDefaultUI: true,
                 gestureHandling: 'greedy',
@@ -87,6 +112,14 @@ export default function FloodMap({ trackGroup, trackObj }) {
                     />
                 ))
             }
+            {clientLocation && <Marker
+                position={{ lat: clientLocation.lat, lng: clientLocation.lng }}
+                icon={{
+                    url: ClientIcon,
+                    scaledSize: new window.google.maps.Size(42, 42),
+                    anchor: new window.google.maps.Point(21, 42)
+                }}
+            />}
         </GoogleMap>
     );
 }

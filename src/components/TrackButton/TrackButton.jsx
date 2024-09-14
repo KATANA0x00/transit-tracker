@@ -4,7 +4,7 @@ import './TrackButton.css'
 
 import TrackModal from '../TrackModal/TrackModal'
 
-export default function TrackButton({trackObj, setTrackObj, trackType, setTrackType, trackGroup, enableStation}) {
+export default function TrackButton({trackObj, setTrackObj, trackType, setTrackType, trackGroup, enableStation, clientLocation, handleSelfTrack}) {
 
     const [isPopup, setIsPopup] = useState(false);
     const [name, setName] = useState('SELECT');
@@ -24,12 +24,13 @@ export default function TrackButton({trackObj, setTrackObj, trackType, setTrackT
     }
 
     function handleSelf() {
+        setTrackType("Vehicle");
         setTrackObj(null);
+        handleSelfTrack();
     }
-
     useEffect(() => {
-        if(trackObj !== null){
-            fetchName()
+        if(trackObj){
+            fetchName();
         }
     },[trackObj])
 
@@ -43,11 +44,10 @@ export default function TrackButton({trackObj, setTrackObj, trackType, setTrackT
             >
             {trackObj === null ? "SELECT": name}
             </button>
-            <button
+            { clientLocation && <button
                 style={{ flexShrink: 0, padding: "10px 15px", backgroundColor: `${trackObj === null ? 'var(--orange-color)' : 'var(--white-color)' }` }}
                 onClick={handleSelf}
                 disabled={trackGroup === null}
-
             >
                 <svg
                     viewBox="2 0 24 24"
@@ -66,7 +66,7 @@ export default function TrackButton({trackObj, setTrackObj, trackType, setTrackT
                         ></path>
                     </g>
                 </svg>
-            </button>
+            </button>}
         </div>
         {isPopup && <TrackModal setIsPopup={setIsPopup} trackObj={trackObj} setTrackObj={setTrackObj} trackType={trackType} setTrackType={setTrackType} trackGroup={trackGroup} enableStation={enableStation}/>}
         </>

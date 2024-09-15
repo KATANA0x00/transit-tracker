@@ -46,7 +46,7 @@ function App() {
   };
 
   const routeSetting = (path) => {
-    if (mapConfig[path] === undefined) {
+    if (!mapConfig[path]) {
       return {
         mapName: (
           <div className='pageName'>
@@ -55,7 +55,6 @@ function App() {
             <label style={{ color: 'var(--black-color)', fontWeight: "normal" }}>Tracking System</label>
           </div>
         ),
-        mapBase: <DefaultMap />,
         trackGroup: null,
         enableStation: true
       };
@@ -112,6 +111,7 @@ function App() {
       </div>
 
       <div className='Map'>
+        {!mapConfig[location.pathname.toLowerCase()] && <DefaultMap/>}
         {location.pathname.toLowerCase() === '/' && <KMITLMap trackGroup={trackGroup} trackType={trackType} trackObj={trackObj} clientLocation={clientLocation} setClientLocation={setClientLocation} setHandleSelfTrack={setHandleSelfTrack}/>}
         {location.pathname.toLowerCase() === '/floodmap' && <FloodMap trackGroup={trackGroup} trackObj={trackObj} clientLocation={clientLocation} setClientLocation={setClientLocation} setHandleSelfTrack={setHandleSelfTrack}/>}
       </div>

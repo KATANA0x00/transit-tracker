@@ -8,10 +8,9 @@ export default function DefaultMap() {
 
     return (
         <>
-            <div style={{position: "absolute", width: "100%",height: "100vh", backgroundColor: "rgb(100, 100, 100, 0.5)"}}></div>
+            <div style={{position: "absolute", width: "100vw",height: "105vh", backgroundColor: "rgb(100, 100, 100, 0.5)"}}></div>
             <img src={WaterMark} style={{ width: isDesktop ? "30%" : "100%", position: "absolute", left: "50%", transform: "translate(-50%, -5%)"}} />
-            <img src={MapPicture} style={{ width: "100%" }} />
-            
+            <img src={MapPicture} style={{ width: "100%",height: isDesktop ? "auto" : "105vh" }} />
         </>
 
     )

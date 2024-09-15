@@ -3,9 +3,24 @@
 .test {
   position: absolute;
   color: red;
-  bottom: 48px !important;
+  bottom: 177px !important;
   font-size: 18px;
   font-weight: 700;
+}
+
+.credit{
+  position: absolute;
+  bottom: 16px !important;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  height: 3rem;
+  width: 100vw;
+}
+
+.credit > img {
+  height: 100%;
+  margin-right: 10px;
 }
 
 #root {
@@ -100,10 +115,17 @@
     right: 6%;
   }
 
+  .credit {
+    height: 4rem;
+    width: fit-content;
+    left: 105px;
+    bottom: 8% !important;
+  }
+
   .test {
     position: absolute;
     color: red;
-    bottom: 8% !important;
+    bottom: 15% !important;
     font-size: 24px;
     font-weight: 700;
   }

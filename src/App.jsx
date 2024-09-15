@@ -9,7 +9,8 @@ import DefaultMap from './components/Map/DefaultMap'
 import KMITLMap from './components/Map/KMTILMap'
 import FloodMap from './components/Map/FloodMap'
 
-
+import EngImg from './assets/logos/EngKMITL.png'
+import IoTImg from './assets/logos/IoTeKMITL.png'
 
 function App() {
   
@@ -71,7 +72,11 @@ function App() {
 
   return (
     <>
-      <div className="test">* อยู่ในช่วงระหว่างการพัฒนาระบบ *</div>
+      <div className="test"> * อยู่ในช่วงระหว่างการพัฒนาระบบ * </div>
+      <div className='credit'>
+        <img src={EngImg}/>
+        <img src={IoTImg}/>
+      </div>
       <TimeNow />
       <div className='Nav'>
 

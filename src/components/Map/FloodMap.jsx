@@ -49,7 +49,6 @@ export default function FloodMap({ trackGroup, trackObj, clientLocation, setClie
                 bounds.extend(new window.google.maps.LatLng(Item.Position.lat, Item.Position.lng));
             });
             mapRef.current.fitBounds(bounds);
-            mapRef.current.setZoom(18);
             hasBoundsSet.current = true;
         }
     }, [list]);

@@ -43,6 +43,9 @@ function App() {
       trackGroup: "FLDTCK",
       enableStation: false,
       routeName: "เรือช่วยเหลือน้ำท่วม"
+    },
+    '/weather-station':{
+      routeName: "โรงเรียนโมโกรวิทยาคม"
     }
   };
 

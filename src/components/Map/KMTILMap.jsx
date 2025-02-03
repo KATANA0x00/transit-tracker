@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
 
 import CarIcon from '../../assets/icons/golf.png';
@@ -16,6 +16,20 @@ export default function FloodMap({ trackGroup, trackObj, trackType, clientLocati
     const mapRef = useRef(null);
     const [listVehicle, setListVlehicle] = useState([]);
     const [listStation, setListStation] = useState([]);
+
+    const setOfPoint = [
+        { lat: 13.727462566133505, lng: 100.77179016730958 },
+        { lat: 13.726142267796595, lng: 100.77182803983688 },
+        { lat: 13.726241423204321, lng: 100.77466049511110 },
+        { lat: 13.726402550652494, lng: 100.77466687451488 },
+        { lat: 13.726452128306580, lng: 100.77686776881580 },
+        { lat: 13.727090439667048, lng: 100.77686138941203 },
+        { lat: 13.727183397487270, lng: 100.77682949239319 },
+        { lat: 13.727208186233108, lng: 100.77672742193286 },
+        { lat: 13.727140017175760, lng: 100.77291891788167 },
+        { lat: 13.727499453800418, lng: 100.77291891788167 },
+        { lat: 13.727462566133505, lng: 100.77179016730958 }
+    ];
 
     function success(position) {
         const latitude = position.coords.latitude;
@@ -37,11 +51,11 @@ export default function FloodMap({ trackGroup, trackObj, trackType, clientLocati
     useEffect(() => {
         const interval = setInterval(() => {
             fetchList();
-            
+
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success);
             }
-            
+
         }, 1000);
         return () => clearInterval(interval);
     }, [fetchList]);
@@ -49,22 +63,22 @@ export default function FloodMap({ trackGroup, trackObj, trackType, clientLocati
     useEffect(() => {
         if (mapRef.current !== null && trackObj) {
             trackType === "Vehicle" ?
-            mapRef.current.setCenter(listVehicle.find((Item) => Item.ID === trackObj).Position)
-            :
-            mapRef.current.setCenter(listStation.find((Item) => Item.ID === trackObj).Position)
-            
+                mapRef.current.setCenter(listVehicle.find((Item) => Item.ID === trackObj).Position)
+                :
+                mapRef.current.setCenter(listStation.find((Item) => Item.ID === trackObj).Position)
+
             mapRef.current.setZoom(isDesktop ? 19 : 18);
         }
     }, [trackObj]);
 
     useEffect(() => {
-        setHandleSelfTrack( () => () => {
+        setHandleSelfTrack(() => () => {
             if (mapRef.current !== null && trackObj === null) {
                 clientLocation && mapRef.current.setCenter(clientLocation);
                 clientLocation && mapRef.current.setZoom(isDesktop ? 19 : 18);
             }
         });
-    },[clientLocation]);
+    }, [clientLocation]);
 
     if (!isLoaded || loadError) {
         return null;
@@ -85,6 +99,16 @@ export default function FloodMap({ trackGroup, trackObj, trackType, clientLocati
                 maxZoom: isDesktop ? 21 : 18
             }}
         >
+            <Polyline
+                path={setOfPoint}
+                options={{
+                    strokeColor: "#305CDE",
+                    strokeOpacity: 1,
+                    strokeWeight: 8,
+                    draggable: false,
+                    clickable: false,
+                }}
+            />
             {
                 listVehicle.map((Item) => (
                     <Marker
